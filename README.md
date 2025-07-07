@@ -7,8 +7,7 @@ Un backend REST API pour un système Kanban avec persistance MySQL et architectu
 ```
 nodejs/
 ├── config/
-│   ├── database.js      # Configuration MySQL
-│   └── schema.sql       # Schéma de la base de données
+│   └── database.js      # Configuration MySQL et création automatique
 ├── controllers/
 │   └── kanbanController.js  # Logique métier
 ├── models/
@@ -30,9 +29,8 @@ npm install
 ```
 
 2. Configurer MySQL :
-   - Créer une base de données MySQL
-   - Modifier les paramètres de connexion dans `config/database.js`
-   - Exécuter le script SQL : `mysql -u root -p < config/schema.sql`
+   - Modifier les paramètres de connexion dans `config/database.js` si nécessaire
+   - La base de données et les tables sont créées automatiquement au démarrage
 
 3. Lancer le serveur :
 ```bash
@@ -40,6 +38,13 @@ node app.js
 # ou avec nodemon
 npx nodemon app.js
 ```
+
+## Fonctionnalités automatiques
+
+- ✅ **Création automatique de la base de données** `kanban_db`
+- ✅ **Création automatique des tables** `colonnes` et `cartes`
+- ✅ **Insertion automatique des données de test**
+- ✅ **Gestion des erreurs de connexion**
 
 ## API Endpoints
 
@@ -54,5 +59,5 @@ npx nodemon app.js
 - **Models** : Gestion des données et requêtes SQL
 - **Controllers** : Logique métier et gestion des requêtes HTTP
 - **Routes** : Définition des endpoints API
-- **Config** : Configuration de la base de données
+- **Config** : Configuration de la base de données avec initialisation automatique
 - **Services** : Services métier (pour extensions futures)
