@@ -1,15 +1,28 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const path = require('path');
+
+// Import de la configuration DB
+require('./config/database');
+
+// Import des routes
 const indexRouter = require('./routes/index');
+const kanbanRouter = require('./routes/kanban');
 
 const app = express();
 const PORT = 3000;
 
+// Configuration CORS et body-parser
+app.use(cors());
+app.use(bodyParser.json());
+
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Use the router for handling routes
+// Routes
 app.use('/', indexRouter);
+app.use('/kanban', kanbanRouter);
 
 // Catch-all route for handling 404 errors
 app.use((req, res, next) => {
@@ -17,5 +30,5 @@ app.use((req, res, next) => {
   });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+  console.log(`Backend Kanban sur http://localhost:${PORT}`);
 });
